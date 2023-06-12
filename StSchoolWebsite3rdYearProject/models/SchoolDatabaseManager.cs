@@ -176,6 +176,43 @@ public class SchoolDatabaseManager
     }
 
 
+    public List<Student> GetAllStudents()
+    {
+        List<Student> students = new List<Student>();
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            // Retrieve all student information from the Students table
+            string query = "SELECT StudentId, FirstName, LastName, ParentHomeAddress, ClassGrade, DepartmentId, UserId FROM Students";
+            using (SqlCommand studentCommand = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                using (SqlDataReader studentReader = studentCommand.ExecuteReader())
+                {
+                    while (studentReader.Read())
+                    {
+                        int studentId = studentReader.GetInt32(0);
+                        string firstName = studentReader.GetString(1);
+                        string lastName = studentReader.GetString(2);
+                        string parentHomeAddress = studentReader.GetString(3);
+                        int classGrade = studentReader.GetInt32(4);
+                        int studentDepartmentId = studentReader.GetInt32(5);
+                        int userId = studentReader.GetInt32(6);
+
+                        // Create a Student object with the retrieved data
+                        Student student = new Student(studentId, firstName, lastName, parentHomeAddress, classGrade, studentDepartmentId, userId);
+                        students.Add(student);
+                    }
+
+                    studentReader.Close();
+                }
+            }
+        }
+
+        return students;
+    }
+
+
 
 
 

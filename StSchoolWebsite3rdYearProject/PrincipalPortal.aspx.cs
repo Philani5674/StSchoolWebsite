@@ -11,7 +11,10 @@ namespace StSchoolWebsite3rdYearProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            List<Student> students = new SchoolDatabaseManager().GetAllStudents();
 
+            studentRepeater.DataSource = students;
+            studentRepeater.DataBind();
         }
     }
 }
