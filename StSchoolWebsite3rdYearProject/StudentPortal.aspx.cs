@@ -12,10 +12,7 @@ namespace StSchoolWebsite3rdYearProject
         protected void Page_Load(object sender, EventArgs e)
         {
             int userId;
-            //if (HttpContext.Current.Session != null)
-            //{
-            //    Response.Redirect("loginn.aspx");
-            //}
+            
             try
             {
                 userId = (int) Session["UserId"];

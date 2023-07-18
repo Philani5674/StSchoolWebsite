@@ -57,14 +57,14 @@ public class SchoolDatabaseManager
 
     // User Methods
 
-    public void AddUser(int userId, string username, string password, string role, int departmentId)
+    public void AddUser( string username, string password, string role, int departmentId)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            string query = "INSERT INTO Users (UserId, Username, Password, Role, DepartmentId) VALUES (@UserId, @Username, @Password, @Role, @DepartmentId)";
+            string query = "INSERT INTO Users (Username, Password, Role, DepartmentId) VALUES (@UserId, @Username, @Password, @Role, @DepartmentId)";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@UserId", userId);
+                
                 command.Parameters.AddWithValue("@Username", username);
                 command.Parameters.AddWithValue("@Password", password);
                 command.Parameters.AddWithValue("@Role", role);
