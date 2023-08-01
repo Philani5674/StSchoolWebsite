@@ -26,7 +26,7 @@
     <hr>
     <!-- Page content -->
     <div class="content">
-    <!-- Navbar -->
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
                 <h5>Student Portal</h5>
@@ -157,58 +157,58 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateDetailsModal">Update Details</button>
                 </div>
             </div>
-            </div>
+        </div>
 
 
 
-        <!-- modal was here-->
+       
 
 
 
-    
 
-<!-- Update Details Modal -->
-       <div class="modal fade" id="updateDetailsModal" tabindex="-1" role="dialog" aria-labelledby="updateDetailsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="updateDetailsModalLabel">Update Details</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+
+        <!-- Update Details Modal -->
+        <div class="modal fade" id="updateDetailsModal" tabindex="-1" role="dialog" aria-labelledby="updateDetailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateDetailsModalLabel">Update Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="nameInput">Name</label>
+                                <input type="text" class="form-control" id="nameInput1" placeholder="Enter your name">
                             </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="nameInput">Name</label>
-                                        <input type="text" class="form-control" id="nameInput1" placeholder="Enter your name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="addressInput">Address</label>
-                                        <input type="text" class="form-control" id="addressInput1" placeholder="Enter your address">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="gradeInput">Grade</label>
-                                        <input type="text" class="form-control" id="gradeInput1" placeholder="Enter your grade">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="departmentInput">Department</label>
-                                        <input type="text" class="form-control" id="departmentInput" placeholder="Enter your department">
-                                    </div>
-                                </form>
+                            <div class="form-group">
+                                <label for="addressInput">Address</label>
+                                <input type="text" class="form-control" id="addressInput1" placeholder="Enter your address">
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save Changes</button>
+                            <div class="form-group">
+                                <label for="gradeInput">Grade</label>
+                                <input type="text" class="form-control" id="gradeInput1" placeholder="Enter your grade">
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="departmentInput">Department</label>
+                                <input type="text" class="form-control" id="departmentInput" placeholder="Enter your department">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save Changes</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
-              
-            
-        
+
+
+
 
 
 
