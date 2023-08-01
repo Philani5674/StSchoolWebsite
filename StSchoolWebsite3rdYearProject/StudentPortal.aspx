@@ -224,12 +224,125 @@
 
         <!--Reports content -->
 
-        <div id="reports" style="display: none;">
-            <div class="container">
-                <h1>Reports</h1>
-                <!-- Add your reports content or display reports here -->
+ 
+       <div id="reports" style="display: none;">
+    <style>
+        /* Custom styles */
+        .school-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        
+        .reportss {
+            border: 1px solid #000;
+            padding: 20px;
+        }
+
+        .student-details {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .download-button {
+            margin-top: 20px;
+        }
+    </style>
+    <div class="container reportss" id="reportss">
+        <h1>Student Reports</h1>
+        <div class="student-details row">
+            <div class="col-6 text-start">
+                <h2>Student Details</h2>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Grade:</strong> Grade 10</p>
+                <p><strong>Student ID:</strong> 123456789</p>
+            </div>
+            <div class="col-6 text-start">
+                <img src="https://static.vecteezy.com/system/resources/previews/008/040/410/original/school-logo-design-template-free-vector.jpg" alt="School Logo" class="school-logo">
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Grade (%)</th>
+                            <th>Pass/Fail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Subject 1</td>
+                            <td>90%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 2</td>
+                            <td>85%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 3</td>
+                            <td>92%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 4</td>
+                            <td>78%</td>
+                            <td><i class="fas fa-times-circle text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 5</td>
+                            <td>88%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 6</td>
+                            <td>91%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Subject 7</td>
+                            <td>95%</td>
+                            <td><i class="fas fa-check-circle text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" id="downloadButton" class="btn btn-primary download-button" onclick="generatePDF()">Download PDF</button>
+            <script>
+                function generatePDF() {
+                    const button = document.getElementById('downloadButton');
+                    button.disabled = true; // Disable the button while generating the PDF
+
+                    var element = document.getElementById('reports');
+                    html2pdf()
+                        .set({ filename: 'student_grades.pdf', margin: 10 })
+                        .from(element)
+                        .save()
+                        .then(() => {
+                            button.disabled = false; // Enable the button after generating the PDF
+                        })
+                        .catch((error) => {
+                            button.disabled = false; // Enable the button even if an error occurs
+                            console.error('Error generating PDF:', error);
+                        });
+                }
+            </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+</div>
+
 
         <!--My subjects content-->
 
@@ -243,6 +356,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- html2pdf library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script>
         // Function to show selected content and hide others
