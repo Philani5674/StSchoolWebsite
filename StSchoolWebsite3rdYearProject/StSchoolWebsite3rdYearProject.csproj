@@ -127,6 +127,7 @@
     <Content Include="images\download.jpeg" />
     <Content Include="images\images.png" />
     <Content Include="Loginn.aspx" />
+    <Content Include="models\SQLQuery1.sql" />
     <Content Include="PrincipalPortal.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\bootstrap.js" />

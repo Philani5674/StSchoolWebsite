@@ -15,7 +15,7 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 40px;
-            background-color: #ffffff;
+            background-color: transparent;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -52,7 +52,8 @@
         .card {
             width: calc(33% - 10px);
             background-color: #f9f9f9;
-            border: none;
+            border: dashed;
+
         }
 
         .card:hover {
@@ -71,6 +72,7 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
+            border-width: thick;
         }
 
         .btn-primary:hover {
@@ -108,21 +110,21 @@
                 <label for="departmentId">Department</label>
                 <div class="card-group">
                     <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentScience" name="departmentId" value="Science" runat="server" required>
+                        <input type="radio" class="card-input-element" id="departmentScience" name="departmentId" value="Science" runat="server" required />
                         <label class="card-body" for="departmentScience">
                             <h5 class="card-title">Science</h5>
                             <p class="card-text">Department of Science</p>
                         </label>
                     </div>
                     <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentHistory" name="departmentId" value="History" runat="server" required>
+                        <input type="radio" class="card-input-element" id="departmentHistory" name="departmentId" value="History" runat="server" required />
                         <label class="card-body" for="departmentHistory">
                             <h5 class="card-title">History</h5>
                             <p class="card-text">Department of History</p>
                         </label>
                     </div>
                     <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentCommerce" name="departmentId" value="Commerce" runat="server" required>
+                        <input type="radio" class="card-input-element" id="departmentCommerce" name="departmentId" value="Commerce" runat="server" required/>
                         <label class="card-body" for="departmentCommerce">
                             <h5 class="card-title">Commerce</h5>
                             <p class="card-text">Department of Commerce</p>

@@ -21,9 +21,7 @@
         }
     </style>
 
-    <hr>
-    <hr>
-    <hr>
+    
     <!-- Page content -->
     <div class="content">
     <!-- Navbar -->
@@ -62,7 +60,7 @@
                         <a class="nav-link" href="#"><span runat="server" id="userLogged" class="user-name">John Doe</span></a>
                     </li>
                     <li class="nav-item">
-                        <asp:Button runat="server" ID="logoutButton" CssClass="btn btn-primary" Text="Logout" />
+                        <asp:Button runat="server" ID="logoutButton" CssClass="btn btn-primary align-content-center" Text="Logout" />
                     </li>
                 </ul>
             </div>
@@ -261,7 +259,7 @@
                 <img src="https://static.vecteezy.com/system/resources/previews/008/040/410/original/school-logo-design-template-free-vector.jpg" alt="School Logo" class="school-logo">
             </div>
         </div>
-        <div class="row">
+        <div class="row" ID ="repo">
             <div class="col-md-12">
                 <table class="table table-striped">
                     <thead>
@@ -273,62 +271,44 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Subject 1</td>
+                            <td>English</td>
                             <td>90%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 2</td>
+                            <td>iSiZulu</td>
                             <td>85%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 3</td>
+                            <td>Life Oreintation</td>
                             <td>92%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 4</td>
+                            <td>Mathematics</td>
                             <td>78%</td>
                             <td><i class="fas fa-times-circle text-danger"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 5</td>
+                            <td>Accounting</td>
                             <td>88%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 6</td>
+                            <td>Economics</td>
                             <td>91%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                         <tr>
-                            <td>Subject 7</td>
+                            <td>Business Studies</td>
                             <td>95%</td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
                     </tbody>
                 </table>
                 <button type="button" id="downloadButton" class="btn btn-primary download-button" onclick="generatePDF()">Download PDF</button>
-            <script>
-                function generatePDF() {
-                    const button = document.getElementById('downloadButton');
-                    button.disabled = true; // Disable the button while generating the PDF
-
-                    var element = document.getElementById('reports');
-                    html2pdf()
-                        .set({ filename: 'student_grades.pdf', margin: 10 })
-                        .from(element)
-                        .save()
-                        .then(() => {
-                            button.disabled = false; // Enable the button after generating the PDF
-                        })
-                        .catch((error) => {
-                            button.disabled = false; // Enable the button even if an error occurs
-                            console.error('Error generating PDF:', error);
-                        });
-                }
-            </script>
+           
             </div>
         </div>
     </div>
@@ -397,4 +377,24 @@
             showContent('mysubjects')
         })
     </script>
+
+     <script>
+         function generatePDF() {
+             const button = document.getElementById('downloadButton');
+             button.disabled = true; // Disable the button while generating the PDF
+
+             var element = document.getElementById('repo');
+             html2pdf()
+                 .set({ filename: 'student_grades.pdf', margin: 50 })
+                 .from(element)
+                 .save()
+                 .then(() => {
+                     button.disabled = false; // Enable the button after generating the PDF
+                 })
+                 .catch((error) => {
+                     button.disabled = false; // Enable the button even if an error occurs
+                     console.error('Error generating PDF:', error);
+                 });
+         }
+     </script>
 </asp:Content>
