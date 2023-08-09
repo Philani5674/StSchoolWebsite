@@ -27,7 +27,7 @@ namespace StSchoolWebsite3rdYearProject
 
         protected void txtPassword_TextChanged(object sender, EventArgs e)
         {
-
+         
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -59,7 +59,6 @@ namespace StSchoolWebsite3rdYearProject
                     Response.Redirect("PrincipalPortal.aspx");
                 }
 
-                else
                 {
                     // Handle unknown role or other scenarios
                   
@@ -68,6 +67,9 @@ namespace StSchoolWebsite3rdYearProject
             else
             {
                 
+                if(username.ToLower() == "admin" && password.ToLower() == "admin@1" ){
+                    Response.Redirect("AdminDashboard.aspx");
+                }
             }
         }
 
