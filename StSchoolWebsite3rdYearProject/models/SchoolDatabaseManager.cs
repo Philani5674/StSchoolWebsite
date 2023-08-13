@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 
 public class SchoolDatabaseManager
 {
+   
     private const string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SchoolWebsite;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
     public SchoolDatabaseManager()
@@ -15,16 +16,6 @@ public class SchoolDatabaseManager
     {
         return connectionString;
     }
-
-    // Department Methods
-
-    
-
-    
-
-    // Course Methods
-
-    
 
     public List<Course> GetCoursesByDepartment(int departmentId)
     {
@@ -54,14 +45,12 @@ public class SchoolDatabaseManager
 
         return courses;
     }
-
     // User Methods
-
     public void AddUser( string username, string password, string role, int departmentId)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            string query = "INSERT INTO Users (Username, Password, Role, DepartmentId) VALUES (@UserId, @Username, @Password, @Role, @DepartmentId)";
+            string query = "INSERT INTO Users (Username, Password, Role, DepartmentId) VALUES (@Username, @Password, @Role, @DepartmentId)";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 
@@ -74,6 +63,113 @@ public class SchoolDatabaseManager
                 command.ExecuteNonQuery();
             }
         }
+    }
+
+    public void AddStudent(string name, string address, int grade, int departmentId,int UserId)
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+           string query = "INSERT INTO Students(FirstName, LastName, ParentHomeAddress, ClassGrade, DepartmentId, UserId) VALUES (@FirstName, @LastName, @ParentHomeAddress, @ClassGrade, @DepartmentId, @UserId)";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@Firstname", name.Split()[0]);
+                command.Parameters.AddWithValue("@LastName", name.Split()[1]);
+                command.Parameters.AddWithValue("@ParentHomeAddress", address);
+                command.Parameters.AddWithValue("@DepartmentId", departmentId);
+                command.Parameters.AddWithValue("@UserId", UserId);
+                command.Parameters.AddWithValue("@ClassGrade", grade);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void Addgrades(int studentId, int classid, int CourseId)
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+
+            string query = "INSERT INTO Grades ( StudentId, ClassId, CourseId, Grade) VALUES (@StudentId, @classid, @courseId, 0)";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@StudentId", studentId);
+                command.Parameters.AddWithValue("@classid", classid);
+                command.Parameters.AddWithValue("@courseId", CourseId);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void AddRegistration(int studentId, int classid, decimal amount)
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+
+            string query = "INSERT INTO Registration ( StudentId, ClassId, RegistrationYear, Fees, AmountPaid) VALUES   (@Stud, @ci, @year, @amount, 0.00 )";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+
+                command.Parameters.AddWithValue("@Stud", studentId);
+                command.Parameters.AddWithValue("@ci", classid);
+                command.Parameters.AddWithValue("@year", DateTime.Now.Year);
+                command.Parameters.AddWithValue("@amount", amount);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public void updatePayment(int studentId, decimal amount)
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+
+            string query = "Update Registration set amountpaid = @amount where studentid = @Stud";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@amount", amount);
+                command.Parameters.AddWithValue("@Stud", studentId);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+
+    public Registration GetRegistrationbyid(int studentid)
+    {
+        Registration reg = null;
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            string query = "SELECT * FROM Registration WHERE StudentId = @id";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", studentid);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int a = reader.GetInt32(0);
+                        int b = reader.GetInt32(1);
+                        int c = reader.GetInt32(2);
+                        int d = reader.GetInt32(3);
+                        decimal e = reader.GetDecimal(4);
+                        decimal f= reader.GetDecimal(5);
+                        reg = new Registration(a, b, c, d, e, f);
+                        
+                    }
+                }
+
+            }
+        }
+
+        return reg ;
+        
     }
 
     public string GetClassNameById(int classId)
@@ -92,7 +188,6 @@ public class SchoolDatabaseManager
         }
     }
 
-
     public string GetDepartmentNameById(int departmentId)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
@@ -108,8 +203,6 @@ public class SchoolDatabaseManager
             }
         }
     }
-
-
 
     public User GetUserById(int userId)
     {
@@ -139,7 +232,6 @@ public class SchoolDatabaseManager
 
         return null;
     }
-
 
     public Student GetStudentByUserId(int userId)
     {
@@ -174,7 +266,6 @@ public class SchoolDatabaseManager
             }
         }
     }
-
 
     public List<Student> GetAllStudents()
     {
@@ -212,10 +303,118 @@ public class SchoolDatabaseManager
         return students;
     }
 
+    public DataTable GetAllStudentsDetails()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("StudentId", typeof(int));
+        dt.Columns.Add("StudentName", typeof(string));
+        dt.Columns.Add("AmountPaid", typeof(decimal));
+        dt.Columns.Add("AmountOwed", typeof(decimal));
+        dt.Columns.Add("Registration", typeof(int));
+        dt.Columns.Add("Classroom", typeof(string));
+
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            // Retrieve all student information from the Students table
+            string query = "SELECT Students.StudentId, Students.FirstName, Students.LastName," +
+                " Registration.Fees, Registration.AmountPaid, Registration.RegistrationYear," +
+                " ClassRoom.ClassName FROM Students , Registration, ClassRoom " +
+                "where Registration.StudentId = Students.StudentId and ClassRoom.ClassId = Registration.ClassId";
+            using (SqlCommand studentCommand = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                using (SqlDataReader studentReader = studentCommand.ExecuteReader())
+                {
+                    while (studentReader.Read())
+                    {
+                        int studentId = studentReader.GetInt32(0);
+                        string firstName = studentReader.GetString(1);
+                        string lastName = studentReader.GetString(2);
+                        decimal amountOwed = studentReader.GetDecimal(3);
+                        decimal amountPaid = studentReader.GetDecimal(4);
+                        int registrationYear = studentReader.GetInt32(5);
+                        string userId = studentReader.GetString(6);
+
+
+                        dt.Rows.Add(studentId, firstName + " " + lastName, amountPaid, amountOwed, registrationYear, userId);
+                        // Create a Student object with the retrieved data
+                        
+                    }
+
+                    studentReader.Close();
+                }
+            }
+        }
+
+        return dt;
+    }
+
+    public DataTable GetAllStudentsDetails(string name)
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("StudentId", typeof(int));
+        dt.Columns.Add("StudentName", typeof(string));
+        dt.Columns.Add("AmountPaid", typeof(decimal));
+        dt.Columns.Add("AmountOwed", typeof(decimal));
+        dt.Columns.Add("Registration", typeof(int));
+        dt.Columns.Add("Classroom", typeof(string));
+
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            // Retrieve all student information from the Students table
+            string query = "SELECT Students.StudentId, Students.FirstName, Students.LastName," +
+                " Registration.Fees, Registration.AmountPaid, Registration.RegistrationYear," +
+                " ClassRoom.ClassName FROM Students , Registration, ClassRoom " +
+                "where Registration.StudentId = Students.StudentId and ClassRoom.ClassId = Registration.ClassId and Students.FirstName = @search";
+            using (SqlCommand studentCommand = new SqlCommand(query, connection))
+            {   studentCommand.Parameters.AddWithValue("@search", name);
+                connection.Open();
+                using (SqlDataReader studentReader = studentCommand.ExecuteReader())
+                {
+                    
+                    while (studentReader.Read())
+                    {
+                        int studentId = studentReader.GetInt32(0);
+                        string firstName = studentReader.GetString(1);
+                        string lastName = studentReader.GetString(2);
+                        decimal amountOwed = studentReader.GetDecimal(3);
+                        decimal amountPaid = studentReader.GetDecimal(4);
+                        int registrationYear = studentReader.GetInt32(5);
+                        string userId = studentReader.GetString(6);
+
+
+                        dt.Rows.Add(studentId, firstName + " " + lastName, amountPaid, amountOwed, registrationYear, userId);
+                        // Create a Student object with the retrieved data
+
+                    }
+
+                    studentReader.Close();
+                }
+            }
+        }
+
+        return dt;
+    }
+
+    public void registerStudent(string usrname, string password, int dpID, string name,string address, decimal amount, int classid  )
+    {
+        AddUser(usrname, password, "Student", dpID);
+       
+        int userID = GetUserByUsernameAndPassword(usrname, password).UserId; 
+        AddStudent(name, address, 1, dpID, userID);
+        int stuid = GetStudentByUserId(userID).StudentId;
+        AddRegistration(stuid, classid, amount);
+        List<Course> f = GetCoursesByDepartment(dpID);
+        foreach(Course co in f)
+        {
+            Addgrades(stuid, classid, co.CourseId);
+        }
 
 
 
-
+    }
 
     public User GetUserByUsernameAndPassword(string username, string password)
     {
@@ -255,7 +454,6 @@ public class SchoolDatabaseManager
         return user;
     }
 
-
     public string GetRolebyPasswordAndUsername(string username, string password)
     {
         string role = "";
@@ -289,9 +487,7 @@ public class SchoolDatabaseManager
         return role;
     }
 
-
     // Teacher Methods
-
     public void AddTeacher(int teacherId, string firstName, string lastName, int departmentId, int userId)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
@@ -341,7 +537,6 @@ public class SchoolDatabaseManager
     }
 
     // Principal Methods
-
     public void AddPrincipal(int principalId, string firstName, string lastName, int userId)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
@@ -389,15 +584,14 @@ public class SchoolDatabaseManager
     }
 
     // Grade Methods
-
-    public void AddGrade(int gradeId, int studentId, int courseId, decimal grade)
+    public void AddGrade( int studentId, int courseId, decimal grade)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            string query = "INSERT INTO Grades (GradeId, StudentId, CourseId, Grade) VALUES (@GradeId, @StudentId, @CourseId, @Grade)";
+            string query = "INSERT INTO Grades ( StudentId, CourseId, Grade) VALUES ( @StudentId, @CourseId, @Grade)";
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@GradeId", gradeId);
+                
                 command.Parameters.AddWithValue("@StudentId", studentId);
                 command.Parameters.AddWithValue("@CourseId", courseId);
                 command.Parameters.AddWithValue("@Grade", grade);
@@ -517,6 +711,48 @@ public class Principal
     }
 }
 
+public class Registration
+{
+    public int RegistrationId { get; set; }
+    public int StudentId { get; set; }
+    public int ClassId { get; set; }
+    public int RegistrationYear { get; set; }
+    public decimal AmountPaid { get; set; }
+    public decimal Fees { get; set; }
+    private decimal adding { get; set; }
+
+    public Registration(int registrationId, int studentid, int classid, int registrationyear, decimal amaountpaid, decimal fees)
+    {
+        RegistrationId = registrationId;
+        StudentId = studentid;
+        ClassId = classid;
+        RegistrationYear = registrationyear;
+        AmountPaid = amaountpaid;
+        Fees = fees;
+
+    }
+
+    public bool isgreater()
+    {
+        return AmountPaid > Fees|| AmountPaid == Fees;
+    }
+
+    public bool pay(decimal amount)
+    {
+        adding = amount + AmountPaid;
+
+        if (!isgreater() )
+        {
+            new SchoolDatabaseManager().updatePayment(StudentId, adding);
+            AmountPaid = adding;
+            return true;
+        }
+        return false;
+
+    }
+
+}
+
 public class Grade
 {
     public int GradeId { get; set; }
@@ -536,9 +772,6 @@ public class Grade
 
    
     }
-
-
-
 
 public class Student
 {
@@ -562,5 +795,9 @@ public class Student
         UserId = userId;
         
     }
+
+
+
+    
 }
 

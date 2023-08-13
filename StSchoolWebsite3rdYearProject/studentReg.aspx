@@ -1,70 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="StSchoolWebsite3rdYearProject.AdminDashboard" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="studentReg.aspx.cs" Inherits="StSchoolWebsite3rdYearProject.studentReg" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container" style="margin-top: 20px;">
 
 
-
-        <!-- Admin Profile Section -->
-        <div  class="container-fluid badge-dark hero">
-            <div class="container-fluid">
-
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                    <div>
-                        <h3 style="font-size: 24px;">Welcome,
-                        <asp:Label ID="lblAdminName" runat="server" Text="Admin" /></h3>
-                        <p>
-                            <span class="badge bg-danger">
-                                <asp:Label ID="lblAdminEmail" runat="server" Text="admin@example.com" /></span>
-
-                        </p>
-                        <p>
-                            <span class="badge bg-danger">
-                                <asp:Label ID="lblAdminRole" runat="server" Text="Administrator" /></span>
-
-                        </p>
-                    </div>
-                    <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn btn-secondary bg-danger" OnClick="btnLogout_Click" />
-                </div>
-            </div>
-        </div>
-
-
-        <br />
-        <!-- Make Payment Section -->
-        <div class="container-fluid badge-light">
-
-            <h3 style="margin-top: 30px;">All Students</h3>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-10 col-lg-10">
-                        <label for="txtsearch">Search</label>
-                        <asp:TextBox ID="txtsearch" runat="server" CssClass="form-control" BorderStyle="Solid" BorderWidth="2px" OnTextChanged="txtsearch_TextChanged"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2 col-lg-2 col-sm-2">
-                      <label for="Button1"></label>
-                   <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary form-control" Text="Search by Name" OnClick="Button1_Click" />
-
-                    </div>
-
-                </div>
-            </div>
-            <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-striped">
-                <Columns>
-                    <asp:BoundField DataField="StudentId" HeaderText="Student ID" />
-                    <asp:BoundField DataField="StudentName" HeaderText="Student Name" />
-                    <asp:BoundField DataField="AmountPaid" HeaderText="Amount Paid" DataFormatString="{0:C}" />
-                    <asp:BoundField DataField="AmountOwed" HeaderText="Amount Owed" DataFormatString="{0:C}" />
-                    <asp:BoundField DataField="Registration" HeaderText="Registration" />
-                    <asp:BoundField DataField="Classroom" HeaderText="Classroom" />
-                </Columns>
-            </asp:GridView>
-
-        </div>
-
-
-        <br />
-        <!-- Register Student Section -->
+     <!-- Register Student Section -->
         <div class="container-fluid badge-light">
             <!-- Register Student Section -->
             <h3 style="margin-top: 30px;">Register Student</h3>
@@ -168,33 +106,5 @@
 
         </div>
 
-
-        <br />
-        <!-- Add Student to Class Section -->
-        <div class="container-fluid badge-light">
-            <h3 style="margin-top: 30px;">Make Student Payment</h3>
-            <div class="form-group">
-                <label for="ddlStudents">Select Student:</label>
-                <%foreach (Student stu in new SchoolDatabaseManager().GetAllStudents()) { ddlStudents.Items.Add(new ListItem(stu.FirstName + " " + stu.LastName, stu.StudentId.ToString())); }%>
-                <asp:DropDownList ID="ddlStudents" runat="server" AutoPostBack="false" CssClass="form-control" OnSelectedIndexChanged="ddlClasses_SelectedIndexChanged">
-                </asp:DropDownList>
-
-            </div>
-            <div class="form-group">
-                <label for="amount">Enter Amount:</label>
-                <asp:TextBox ID="amoundt" BorderStyle="Solid" AutoPostBack="false" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
-            </div>
-            <asp:Button ID="btnAddStudentToClass" runat="server" Text="Pay for student" CssClass="btn btn-primary" OnClick="btnAddStudentToClass_Click" />
-
-        </div>
-    </div>
-
-
-    <!-- Add Bootstrap 5 JS and jQuery links -->
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Add script for Make Payment functionality -->
 
 </asp:Content>

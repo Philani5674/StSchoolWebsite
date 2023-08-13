@@ -60,33 +60,6 @@ namespace StSchoolWebsite3rdYearProject
         protected global::System.Web.UI.HtmlControls.HtmlSelect role;
 
         /// <summary>
-        /// departmentScience control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton departmentScience;
-
-        /// <summary>
-        /// departmentHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton departmentHistory;
-
-        /// <summary>
-        /// departmentCommerce control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputRadioButton departmentCommerce;
-
-        /// <summary>
         /// btnRegister control.
         /// </summary>
         /// <remarks>
@@ -94,5 +67,14 @@ namespace StSchoolWebsite3rdYearProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegister;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

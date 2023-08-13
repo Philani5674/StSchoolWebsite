@@ -83,7 +83,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container">
+        <div style="background-color:gray" class="container">
             <h2>User Registration</h2>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -101,38 +101,12 @@
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" runat="server" required >
                     <option value="">Select Role</option>
-                    <option value="Student">Student</option>
                     <option value="Teacher">Teacher</option>
                     <option value="Principal">Principal</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="departmentId">Department</label>
-                <div class="card-group">
-                    <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentScience" name="departmentId" value="Science" runat="server" required />
-                        <label class="card-body" for="departmentScience">
-                            <h5 class="card-title">Science</h5>
-                            <p class="card-text">Department of Science</p>
-                        </label>
-                    </div>
-                    <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentHistory" name="departmentId" value="History" runat="server" required />
-                        <label class="card-body" for="departmentHistory">
-                            <h5 class="card-title">History</h5>
-                            <p class="card-text">Department of History</p>
-                        </label>
-                    </div>
-                    <div class="card">
-                        <input type="radio" class="card-input-element" id="departmentCommerce" name="departmentId" value="Commerce" runat="server" required/>
-                        <label class="card-body" for="departmentCommerce">
-                            <h5 class="card-title">Commerce</h5>
-                            <p class="card-text">Department of Commerce</p>
-                        </label>
-                    </div>
-                </div>
-            </div>
             <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary" OnClick="btnRegister_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Register As a Student" CssClass="btn btn-primary" href="studentReg.aspx" />
         </div>
     </form>
     <!-- Bootstrap JS -->

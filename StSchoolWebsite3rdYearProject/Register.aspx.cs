@@ -18,29 +18,13 @@ namespace StSchoolWebsite3rdYearProject
         {
             string usernam = username.Value;
             string passwor = password.Value;
-            string confirmPasswor = confirmPassword.Value;
             string rol = role.Value;
             
-            string departmentName = Request.Form["departmentId"];
 
-            int departmentIdL = 0;
-            switch (departmentName)
-            {
-                case "Science":
-                    departmentIdL = 1;
-                    break;
-                case "History":
-                    departmentIdL = 2;
-                    break;
-                case "Commerce":
-                    departmentIdL = 3;
-                    break;
-                default:
-                    // Handle invalid department name
-                    break;
-            }
+           
+          
 
-            new SchoolDatabaseManager().AddUser(usernam,passwor,rol, departmentIdL);
+            new SchoolDatabaseManager().AddUser(usernam,passwor,rol, 1);
 
 
         }

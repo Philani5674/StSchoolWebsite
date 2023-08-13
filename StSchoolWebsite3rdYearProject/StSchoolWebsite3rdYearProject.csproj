@@ -24,6 +24,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerLaunchUrl>http://{ServiceIPAddress}</DockerLaunchUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,6 +126,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="images\download.jpeg" />
     <Content Include="images\images.png" />
@@ -161,6 +167,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="StudentPortal.aspx" />
+    <Content Include="studentReg.aspx" />
     <Content Include="TeacherPortal.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -238,6 +245,13 @@
     <Compile Include="StudentPortal.aspx.designer.cs">
       <DependentUpon>StudentPortal.aspx</DependentUpon>
     </Compile>
+    <Compile Include="studentReg.aspx.cs">
+      <DependentUpon>studentReg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="studentReg.aspx.designer.cs">
+      <DependentUpon>studentReg.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TeacherPortal.aspx.cs">
       <DependentUpon>TeacherPortal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,6 +259,7 @@
     <Compile Include="TeacherPortal.aspx.designer.cs">
       <DependentUpon>TeacherPortal.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Testing.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
