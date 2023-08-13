@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 public class SchoolDatabaseManager
 {
    
-    private const string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SchoolWebsite;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    private const string connectionString = "Data Source=146.230.177.46;Initial Catalog=GroupPmb10;User ID=grouppmb10;Password=g4dwva;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
     public SchoolDatabaseManager()
     {
