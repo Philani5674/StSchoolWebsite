@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using StSchoolWebsite3rdYearProject.models;
 
 namespace StSchoolWebsite3rdYearProject
 {
@@ -12,8 +13,7 @@ namespace StSchoolWebsite3rdYearProject
     public partial class Loginn : System.Web.UI.Page
         
     {
-        public static string connectionString = new SchoolDatabaseManager().getCoString();
-        SchoolDatabaseManager manager = new SchoolDatabaseManager();
+        DataAccess.Data manager = new SchoolDatabaseManager();
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,10 +40,15 @@ namespace StSchoolWebsite3rdYearProject
             {
                 // Redirect to the appropriate user page based on the role
                 string role = GetUserRole(username, password);
-
+                int id = manager.GetUserByUsernameAndPassword(username, password).UserId;
                 if (role == "student")
                 {
-                    Session["UserId"] = manager.GetUserByUsernameAndPassword(username, password).UserId;
+                    Session["UserId"] =id ;
+                    int g = manager.GetStudentByUserId(id).ClassGrade;
+                    if (g == 0)
+                    {
+                        Response.Redirect("WebForm1.aspx");
+                    }
                     Response.Redirect("StudentPortal.aspx");
                 }
 

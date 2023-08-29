@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using StSchoolWebsite3rdYearProject.DataAccess;
+using StSchoolWebsite3rdYearProject.models;
 
 namespace StSchoolWebsite3rdYearProject
 {
     public partial class AdminDashboard : System.Web.UI.Page
     {
+        Data db = new SchoolDatabaseManager();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,7 +31,7 @@ namespace StSchoolWebsite3rdYearProject
         private DataTable GetSampleStudentsData()
         {
             // Add more sample data here
-            return new SchoolDatabaseManager().GetAllStudentsDetails();
+            return db.GetAllStudentsDetails();
         }
 
         private void BindStudentsGrid()
@@ -52,7 +55,7 @@ namespace StSchoolWebsite3rdYearProject
 
         private void BindStudentsDropDown()
         {
-            foreach (Student stu in new SchoolDatabaseManager().GetAllStudents())
+            foreach (Student stu in db.GetAllStudents())
             {
                 ddlStudents.Items.Add(new ListItem(stu.FirstName + " " + stu.LastName, stu.StudentId.ToString()));
             }
@@ -68,12 +71,12 @@ namespace StSchoolWebsite3rdYearProject
             string studentusrname = txtStudentusrName.Text;
             string studentpassword = txtpassword.Text;
             string address = txtHomeAddress.Text;
-            string studentName = txtStudentName.Text;
+            string studentName = txtStudentName.Text + " "+ txtSurname.Text;
             int departmentId = int.Parse(ddlClass.SelectedItem.Value);
             decimal amount = decimal.Parse(txtAmountOwed.Text);
             int g = int.Parse(ddlClass.Text);
             
-            new SchoolDatabaseManager().registerStudent(studentusrname, studentpassword,
+            db.registerStudent(studentusrname, studentpassword,
                 departmentId, studentName, address, amount, g);
             txtStudentName.Text = string.Empty;
             txtpassword.Text = string.Empty;
@@ -97,7 +100,7 @@ namespace StSchoolWebsite3rdYearProject
            
             int studentId = int.Parse(ddlStudents.SelectedItem.Value);
             string studentname = "";
-            List<Student> students = new SchoolDatabaseManager().GetAllStudents();
+            List<Student> students = db.GetAllStudents();
             foreach (Student stu in students)
             {
                 if (stu.StudentId == studentId)
@@ -105,7 +108,7 @@ namespace StSchoolWebsite3rdYearProject
                     studentname = stu.FirstName + " " + stu.LastName;
                 }
             }
-            if(new SchoolDatabaseManager().GetRegistrationbyid(studentId).pay(amount)){
+            if(db.GetRegistrationbyid(studentId).pay(amount)){
                 BindStudentsGrid();
                 ClientScript.RegisterStartupScript(this.GetType(), "PaymentSuccess", "alert('Payment of "+studentname+" is successful!');", true);
             }
@@ -149,21 +152,21 @@ namespace StSchoolWebsite3rdYearProject
             // Sample data - Replace this with your actual data retrieval logic
             if (planId == 1) // Commerce
             {
-                dtClasses.Rows.Add(1, "Commerce Grade 10");
-                dtClasses.Rows.Add(2, "Commerce Grade 11");
-                dtClasses.Rows.Add(2, "Commerce Grade 12");
+                dtClasses.Rows.Add(1, "Science Grade 10");
+                dtClasses.Rows.Add(2, "Science Grade 11");
+                dtClasses.Rows.Add(2, "Science Grade 12");
             }
             else if (planId == 2) // Science
             {
-                dtClasses.Rows.Add(3, "Science Grade 10");
-                dtClasses.Rows.Add(4, "Science Grade 11");
-                dtClasses.Rows.Add(2, "Science Grade 12");
+                dtClasses.Rows.Add(3, "History Grade 10");
+                dtClasses.Rows.Add(4, "History Grade 11");
+                dtClasses.Rows.Add(2, "History Grade 12");
             }
             else if (planId == 3) // History
             {
-                dtClasses.Rows.Add(5, "History Grade 10");
-                dtClasses.Rows.Add(6, "History Grade 11");
-                dtClasses.Rows.Add(6, "History Grade 12");
+                dtClasses.Rows.Add(5, "Commerce Grade 10");
+                dtClasses.Rows.Add(6, "Commerce Grade 11");
+                dtClasses.Rows.Add(6, "Commerce Grade 12");
 
             }
 
@@ -176,15 +179,15 @@ namespace StSchoolWebsite3rdYearProject
             // For this example, we'll use a sample amount calculation
             if (planId == 1) // Commerce
             {
-                return 15000.00m;
+                return 18000.00m;
             }
             else if (planId == 2) // Science
             {
-                return 18000.00m;
+                return 15000.00m;
             }
             else if (planId == 3) // History
             {
-                return 12000.00m;
+                return 17000.00m;
             }
 
             return 0.00m;
@@ -202,14 +205,14 @@ namespace StSchoolWebsite3rdYearProject
         }
 
         protected void Button1_Click(object sender, EventArgs e)
-        {
-            DataTable j = new SchoolDatabaseManager().GetAllStudentsDetails(txtsearch.Text);
+        {//search button event.
+            DataTable j = db.GetAllStudentsDetails(txtsearch.Text);
 
 
 
             if (j.Rows.Count == 0)
             {
-                j = new SchoolDatabaseManager().GetAllStudentsDetails(); 
+                j = db.GetAllStudentsDetails(); 
                 gvStudents.DataSource = j;
                 gvStudents.DataBind();
             }
@@ -218,7 +221,7 @@ namespace StSchoolWebsite3rdYearProject
 
         protected void txtsearch_TextChanged(object sender, EventArgs e)
         {
-            DataTable j = new SchoolDatabaseManager().GetAllStudentsDetails(txtsearch.Text);
+            DataTable j = db.GetAllStudentsDetails(txtsearch.Text);
             gvStudents.DataSource = j;
             gvStudents.DataBind();
         }

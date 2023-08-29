@@ -3,19 +3,21 @@
 
 
      <!-- Register Student Section -->
-        <div class="container-fluid badge-light">
+       <div class="container-fluid badge-light">
             <!-- Register Student Section -->
             <h3 style="margin-top: 30px;">Register Student</h3>
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        <label for="txtStudentName">Student Name</label>
+                        <label for="txtStudentName">First Name</label>
                         <asp:TextBox ID="txtStudentName" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+
                     <div class="col-lg-6 col-md-6">
-                        <label for="txtStudentName">Home Address</label>
-                        <asp:TextBox ID="txtHomeAddress" runat="server" CssClass="form-control"></asp:TextBox>
+                        <label for="txtStudentName">Last Name</label>
+                        <asp:TextBox ID="txtSurname" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                    
                 </div>
 
                 <div class="row">
@@ -23,6 +25,8 @@
                         <label for="txtStudentusrName">Username</label>
                         <asp:TextBox ID="txtStudentusrName" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
                     </div>
+
+
                     <div class="col-lg-6 col-md-6">
                         <label for="txtpassword">Password</label>
                         <asp:TextBox ID="txtpassword" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
@@ -39,9 +43,9 @@
 
                         <asp:DropDownList ID="ddlPlan" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlPlan_SelectedIndexChanged">
                             <asp:ListItem Text="Select Plan" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Commerce Department" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Science Department" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="History Department" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Commerce Department" Value="3"></asp:ListItem>
+                            <asp:ListItem Text="Science Department" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="History Department" Value="2"></asp:ListItem>
                         </asp:DropDownList>
 
                     </div>
@@ -55,12 +59,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-md-8">
+                <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label for="txtAmountOwed">Student Total Fees:</label>
                         <asp:TextBox ID="txtAmountOwed" runat="server" Text="0" CssClass="form-control" Enabled="false"></asp:TextBox>
                     </div>
                 </div>
+                <div class="col-lg-6 col-md-6">
+                        <label for="txtStudentName">Home Address</label>
+                        <asp:TextBox ID="txtHomeAddress" runat="server"  CssClass="form-control"></asp:TextBox>
+                    </div>
             </div>
 
             <div class="step-content ms-4 me-2" style="height: 100%">
@@ -73,7 +81,7 @@
                         <div class="col-md-12">
                             <ul class="list-group badge-light" id="Ul1" runat="server">
 
-                                <%foreach (Course co in new SchoolDatabaseManager().GetCoursesByDepartment(int.Parse(ddlPlan.SelectedItem.Value)))
+                                <%foreach (var co in new SchoolDatabaseManager().GetCoursesByDepartment(int.Parse(ddlPlan.SelectedItem.Value)))
                                     {%>
                                 <li style="font-size: medium; background-color: none" class="row list-group-item d-flex justify-content-between align-items-center">
                                     <label class="col-md-4"><span style="font-size: smaller; background-color: darkred" class="badge purple white-text bg-danger rounded-pill px-3"><%=co.CourseId %></span> </label>

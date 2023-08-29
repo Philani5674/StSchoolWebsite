@@ -1,7 +1,16 @@
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat 
-
+# Use the base image
 FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019
-ARG source
+
+# Set the working directory inside the image
 WORKDIR /inetpub/wwwroot
-COPY ${source:-obj/Docker/publish} .
+
+# Copy the application files from the specified source into the working directory
+COPY obj/Docker/publish .
+
+# Expose the port your application will run on (change to the appropriate port)
+EXPOSE 80
+
+# Define the entry point for the container (start the ASP.NET application)
+ENTRYPOINT ["C:\\ServiceMonitor.exe", "w3svc"]
+
+# Replace "w3svc" with your application's service name if necessary

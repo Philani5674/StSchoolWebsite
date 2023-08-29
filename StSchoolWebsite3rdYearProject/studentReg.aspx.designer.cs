@@ -24,13 +24,13 @@ namespace StSchoolWebsite3rdYearProject
         protected global::System.Web.UI.WebControls.TextBox txtStudentName;
 
         /// <summary>
-        /// txtHomeAddress control.
+        /// txtSurname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHomeAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtSurname;
 
         /// <summary>
         /// txtStudentusrName control.
@@ -76,6 +76,15 @@ namespace StSchoolWebsite3rdYearProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAmountOwed;
+
+        /// <summary>
+        /// txtHomeAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHomeAddress;
 
         /// <summary>
         /// Ul1 control.

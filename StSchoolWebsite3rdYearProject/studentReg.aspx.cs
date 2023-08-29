@@ -24,7 +24,7 @@ namespace StSchoolWebsite3rdYearProject
             string studentusrname = txtStudentusrName.Text;
             string studentpassword = txtpassword.Text;
             string address = txtHomeAddress.Text;
-            string studentName = txtStudentName.Text;
+            string studentName = txtStudentName.Text + " " + txtSurname.Text;
             int departmentId = int.Parse(ddlClass.SelectedItem.Value);
             decimal amount = decimal.Parse(txtAmountOwed.Text);
             int g = int.Parse(ddlClass.Text);
@@ -36,10 +36,8 @@ namespace StSchoolWebsite3rdYearProject
             txtpassword.Text = string.Empty;
             ddlClass.SelectedIndex = -1;
             txtHomeAddress.Text = null;
-            Response.Redirect("loginn.aspx");
+            Response.Redirect("WebForm1.aspx");
             // Show a success message
-            ClientScript.RegisterStartupScript(this.GetType(), "RegistrationSuccess", "alert('Student registered successfully!');", true);
-            
         }
 
 
