@@ -127,7 +127,6 @@
     <Content Include="Content\static\NotFound.svg" />
     <Content Include="Content\static\transact.svg" />
     <Content Include="Content\static\waiting.svg" />
-    <Content Include="Content\static\XeLogo.svg" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -141,6 +140,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\static\PlaceholderFile.pdf" />
+    <Content Include="StudentValidation.aspx" />
     <Content Include="WebForm1.aspx" />
     <None Include="Dockerfile" />
     <None Include=".dockerignore">
@@ -277,6 +277,13 @@
     </Compile>
     <Compile Include="studentReg.aspx.designer.cs">
       <DependentUpon>studentReg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StudentValidation.aspx.cs">
+      <DependentUpon>StudentValidation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StudentValidation.aspx.designer.cs">
+      <DependentUpon>StudentValidation.aspx</DependentUpon>
     </Compile>
     <Compile Include="TeacherPortal.aspx.cs">
       <DependentUpon>TeacherPortal.aspx</DependentUpon>

@@ -8,11 +8,11 @@
         <!-- Admin Profile Section -->
         <div  class="container-fluid badge-dark hero">
             <div class="container-fluid">
-
+                <asp:Timer ID="Timer1" runat="server" OnLoad="Timer1_Load"></asp:Timer>
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
                     <div>
                         <h3 style="font-size: 24px;">Welcome,
-                        <asp:Label ID="lblAdminName" runat="server" Text="Admin" /></h3>
+                        <asp:Label ID="lblAdminName" runat="server" Text="Administrator" /></h3>
                         <p>
                             <span class="badge bg-danger">
                                 <asp:Label ID="lblAdminEmail" runat="server" Text="admin@example.com" /></span>
@@ -29,7 +29,54 @@
             </div>
         </div>
 
-
+        <br />
+           <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="card bg-light text-dark">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="align-self-center">
+                            <span class="material-icons-outlined text-info md-64">groups</span>
+                        </div>
+                        <div class="text-end">
+                            <h3 id="TotalStudents" runat="server">0</h3>
+                            <p class="mb-0 no-text-wrap">Total students</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="card bg-success text-light">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="align-self-center">
+                            <span class="material-icons-outlined text-white md-64">verified_user</span>
+                        </div>
+                        <div class="text-end">
+                            <h3 id="TotalApproved" runat="server">0</h3>
+                            <p class="mb-0 no-text-wrap">Approved Students</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between px-md-1">
+                        <div class="align-self-center">
+                            <span class="material-icons-outlined text-white md-64">gpp_maybe</span>
+                        </div>
+                        <div class="text-end">
+                            <h3 class=" text-white" id="TotalUnapproved" runat="server">0</h3>
+                            <a href="StudentValidation.aspx" target="_blank" class="mb-0 text-white no-text-wrap">Unapproved students</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <br />
         <!-- Make Payment Section -->
         <div class="container-fluid badge-light">

@@ -16,7 +16,7 @@ namespace StSchoolWebsite3rdYearProject
             if (!IsPostBack)
             {
                 // Assuming the admin data is available, set the profile information
-                lblAdminName.Text = "John Doe"; // Replace with actual admin name
+                lblAdminName.Text = ""; // Replace with actual admin name
                 lblAdminEmail.Text = "admin@example.com"; // Replace with actual admin email
                 lblAdminRole.Text = "Administrator"; // Replace with actual admin role
 
@@ -59,6 +59,10 @@ namespace StSchoolWebsite3rdYearProject
             {
                 ddlStudents.Items.Add(new ListItem(stu.FirstName + " " + stu.LastName, stu.StudentId.ToString()));
             }
+
+            TotalApproved.InnerHtml= (db.GetAllStudents().Count - db.GetAllNotApproved().Count).ToString();
+            TotalUnapproved.InnerHtml = db.GetAllNotApproved().Count.ToString();
+            TotalStudents.InnerHtml = db.GetAllStudents().Count.ToString();
         }
         private void BindClassesDropDown()
         {
@@ -224,6 +228,17 @@ namespace StSchoolWebsite3rdYearProject
             DataTable j = db.GetAllStudentsDetails(txtsearch.Text);
             gvStudents.DataSource = j;
             gvStudents.DataBind();
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            string script = "window.open('StudentValidation.aspx','_blank)";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewTab", script, true);
+        }
+
+        protected void Timer1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

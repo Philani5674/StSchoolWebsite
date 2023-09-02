@@ -14,6 +14,9 @@ namespace StSchoolWebsite3rdYearProject.DataAccess
     {
         string getCoString();
 
+        void ApproveStudent(int userId);
+        List<Student> GetAllNotApproved();
+
         List<Course> GetCoursesByDepartment(int departmentId);
 
         void updatePayment(int studentId, decimal amount);

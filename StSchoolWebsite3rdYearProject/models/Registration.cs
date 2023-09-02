@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Linq.Mapping;
 
 namespace StSchoolWebsite3rdYearProject.models
 {
+
+    [Table(Name = "Registration")]
     public class Registration
     {
+        [Column(Name = "RegistrationId")]
         public int RegistrationId { get; set; }
+        [Column(Name = "StudentId")] 
         public int StudentId { get; set; }
+        [Column(Name = "ClassId")] 
         public int ClassId { get; set; }
+        [Column(Name = "RegistrationYear")] 
         public int RegistrationYear { get; set; }
+        [Column(Name = "AmountPaid")] 
         public decimal AmountPaid { get; set; }
+        [Column(Name = "Fees")] 
         public decimal Fees { get; set; }
         private decimal adding { get; set; }
 

@@ -12,9 +12,8 @@ public class SchoolDatabaseManager:Data
     
 
 
-    private const string connectionString = "Data Source=(localdb)\\" +
-        "MSSQLLocalDB;Initial Catalog=SchoolWebsite;Integrated " +
-        "Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
+    private const string connectionString = "Data Source=146.230.177.46;User ID=grouppmb10;Password=********;" +
+        "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
         "ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
     DataContext dataContext = new DataContext(connectionString);
@@ -156,8 +155,8 @@ public class SchoolDatabaseManager:Data
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            string query = "SELECT DepartmentName FROM Departments WHERE DepartmentId = @DepartmentId";
-            using (SqlCommand command = new SqlCommand(query, connection))
+            string query1 = "SELECT DepartmentName FROM Departments WHERE DepartmentId = @DepartmentId";
+            using (SqlCommand command = new SqlCommand(query1, connection))
             {
                 command.Parameters.AddWithValue("@DepartmentId", departmentId);
 
@@ -165,6 +164,13 @@ public class SchoolDatabaseManager:Data
                 string departmentName = (string)command.ExecuteScalar();
                 return departmentName;
             }
+
+            Table<Department> departments = dataContext.GetTable<Department>();
+
+            var query = from department in departments
+                        where department.DepartmentId == departmentId
+                        select department.DepartmentName;
+            return query.ToString();
         }
     }
 
@@ -172,16 +178,63 @@ public class SchoolDatabaseManager:Data
     // student methods
     public Student GetStudentByUserId(int userId)
     {
-        var query = from student in GetAllStudents()
-                    where student.UserId == userId
-                    select student;
 
-        return query.First<Student>();
+        return GetAllStudents().FirstOrDefault(s =>s.UserId ==userId);
     }
+
+    public void ApproveStudent(int userId)
+    {
+
+
+        using (var dataContext = new DataContext(connectionString))
+        {
+           
+           
+                    var student = dataContext.GetTable<Student>().FirstOrDefault(s => s.UserId == userId);
+                    if (student != null)
+                    {
+                        
+                        student.ClassGrade = 1;
+                        updatestudent(student.ClassGrade,student.UserId);
+                        dataContext.Connection.Open();
+                        dataContext.SubmitChanges(); 
+                        
+                // Save changes to the database
+                         // Commit the transaction
+                    }
+                
+               
+            
+        }
+
+    }
+
+    public void updatestudent(int grade, int userid)
+    {
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+
+            string query = "Update Students set ClassGrade = @amount where UserId = @Stud";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@amount", grade);
+                command.Parameters.AddWithValue("@Stud",userid );
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+
+
 
     public List<Student> GetAllStudents()
     {
         return dataContext.GetTable<Student>().ToList<Student>();
+    }
+
+    public List<Student> GetAllNotApproved()
+    {
+        return GetAllStudents().FindAll(s => s.ClassGrade ==0);
     }
 
     public DataTable GetAllStudentsDetails()
@@ -304,7 +357,7 @@ public class SchoolDatabaseManager:Data
         AddUser(usrname, password, "Student", dpID);
        
         int userID = GetUserByUsernameAndPassword(usrname, password).UserId; 
-        AddStudent(name, address, 1, dpID, userID);
+        AddStudent(name, address, 0, dpID, userID);
         int stuid = GetStudentByUserId(userID).StudentId;
         AddRegistration(stuid, classid, amount);
         List<Course> f = GetCoursesByDepartment(dpID);
@@ -606,9 +659,6 @@ public class SchoolDatabaseManager:Data
 
 
 }
-
-
-
 
 
 
