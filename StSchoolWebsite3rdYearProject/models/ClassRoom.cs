@@ -15,5 +15,14 @@ namespace StSchoolWebsite3rdYearProject.models
         public string ClassName { get; set; }
         [Column(Name = "DepartmentId")]
         public int DepartmentId { get; set; }
+
+
+        public ClassRoom()
+        {
+
+        }
     }
+
+
+   
 }

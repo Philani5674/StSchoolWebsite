@@ -25,6 +25,11 @@ namespace StSchoolWebsite3rdYearProject.models
             LastName = lastName;
             UserId = userId;
         }
+
+        Principal()
+        {
+
+        }
     }
 
 

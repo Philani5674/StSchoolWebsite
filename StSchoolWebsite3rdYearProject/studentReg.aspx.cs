@@ -66,23 +66,23 @@ namespace StSchoolWebsite3rdYearProject
             dtClasses.Columns.Add("ClassName", typeof(string));
 
             // Sample data - Replace this with your actual data retrieval logic
-            if (planId == 1) // Commerce
+            if (planId == 3) // Commerce
             {
-                dtClasses.Rows.Add(1, "Commerce Grade 10");
-                dtClasses.Rows.Add(2, "Commerce Grade 11");
-                dtClasses.Rows.Add(2, "Commerce Grade 12");
+                dtClasses.Rows.Add(3, "Commerce Grade 10");
+                dtClasses.Rows.Add(3, "Commerce Grade 11");
+                dtClasses.Rows.Add(3, "Commerce Grade 12");
             }
-            else if (planId == 2) // Science
+            else if (planId == 1) // Science
             {
-                dtClasses.Rows.Add(3, "Science Grade 10");
-                dtClasses.Rows.Add(4, "Science Grade 11");
-                dtClasses.Rows.Add(2, "Science Grade 12");
+                dtClasses.Rows.Add(1, "Science Grade 10");
+                dtClasses.Rows.Add(1, "Science Grade 11");
+                dtClasses.Rows.Add(1, "Science Grade 12");
             }
-            else if (planId == 3) // History
+            else if (planId == 2) // History
             {
-                dtClasses.Rows.Add(5, "History Grade 10");
-                dtClasses.Rows.Add(6, "History Grade 11");
-                dtClasses.Rows.Add(6, "History Grade 12");
+                dtClasses.Rows.Add(2, "History Grade 10");
+                dtClasses.Rows.Add(2, "History Grade 11");
+                dtClasses.Rows.Add(2, "History Grade 12");
 
             }
 

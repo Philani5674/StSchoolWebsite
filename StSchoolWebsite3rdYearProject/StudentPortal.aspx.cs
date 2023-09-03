@@ -10,10 +10,16 @@ namespace StSchoolWebsite3rdYearProject
 {
     public partial class StudentPortal : System.Web.UI.Page
     {
+
+        DataAccess.Data db = new SchoolDatabaseManager();
+        int userId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             int userId;
-            
+            if (IsPostBack)
+            {
+            userId = (int) Session["UserId"];
+            }
             try
             {
                 userId = (int) Session["UserId"];
@@ -23,19 +29,32 @@ namespace StSchoolWebsite3rdYearProject
 
                 userId = (int)Session["UserId"];
             }
+            
+            this.userId = userId;
+            ids.InnerHtml = userId.ToString();
           
-            User student = new SchoolDatabaseManager().GetUserById(userId);
-            Student stu = new SchoolDatabaseManager().GetStudentByUserId(student.UserId);
-            userLogged.InnerHtml = stu.FirstName + " " + stu.LastName +"  ";
+            User user = db.GetUserById(userId);
+            Student student = db.GetStudentByUserId(user.UserId);
+            userLogged.InnerHtml = student.FirstName + " " + student.LastName +"  ";
 
-            name.InnerHtml = stu.FirstName + " " + stu.LastName + "  ";
-            address.InnerHtml = stu.ParentHomeAddress;
-            grade.InnerHtml = new SchoolDatabaseManager().GetClassNameById(stu.ClassGrade);
-            dep.InnerHtml = new SchoolDatabaseManager().GetDepartmentNameById(stu.DepartmentId);
+            name.InnerHtml = student.FirstName + " " + student.LastName + "  ";
+            userLogged.InnerHtml = name.InnerHtml;
+            address.InnerHtml = student.ParentHomeAddress;
+            grade.InnerHtml = db.GetClassNameById(student.ClassGrade);
+            dep.InnerHtml = new SchoolDatabaseManager().GetDepartmentNameById(student.DepartmentId);
+
+
+           
+           
 
 
 
 
+        }
+
+        protected void logoutButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("loginn.aspx");
         }
     }
 }

@@ -29,5 +29,10 @@ namespace StSchoolWebsite3rdYearProject.models
             Role = role;
             DepartmentId = departmentId;
         }
+
+        User()
+        {
+
+        }
     }
 }

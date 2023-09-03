@@ -236,10 +236,7 @@ namespace StSchoolWebsite3rdYearProject
             ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewTab", script, true);
         }
 
-        protected void Timer1_Load(object sender, EventArgs e)
-        {
-            
-        }
+        
     }
 }
 

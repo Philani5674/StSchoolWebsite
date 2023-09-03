@@ -11,10 +11,20 @@ public class SchoolDatabaseManager:Data
 {
     
 
+    /// <summary>
+    /// online connection string
+    /// </summary>
+    /*private const string connectionString = "Data Source=146.230.177.46;User ID=grouppmb10;Password=g4dwva;" +
+          "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
+          "ApplicationIntent=ReadWrite;MultiSubnetFailover=False";*/
 
-    private const string connectionString = "Data Source=146.230.177.46;User ID=grouppmb10;Password=********;" +
-        "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;" +
-        "ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    /// <summary>
+    /// local connection string.
+    /// </summary>
+    private const string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SchoolWebsite;" +
+        "Integrated Security=True;Connect Timeout=30;" +
+        "Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
 
     DataContext dataContext = new DataContext(connectionString);
 
@@ -23,6 +33,7 @@ public class SchoolDatabaseManager:Data
     {
     }
 
+    
     public string getCoString()
     {
         return connectionString;
@@ -32,31 +43,12 @@ public class SchoolDatabaseManager:Data
     // Courses Methods
     public List<Course> GetCoursesByDepartment(int departmentId)
     {
-        List<Course> courses = new List<Course>();
+        return dataContext.GetTable<Course>().ToList<Course>().FindAll(c => c.DepartmentId == departmentId);
+    }
 
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "SELECT CourseId, CourseName FROM Courses WHERE DepartmentId = @DepartmentId";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@DepartmentId", departmentId);
-
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int courseId = reader.GetInt32(0);
-                        string courseName = reader.GetString(1);
-
-                        Course course = new Course(courseId, courseName, departmentId);
-                        courses.Add(course);
-                    }
-                }
-            }
-        }
-
-        return courses;
+    public Course GetCourseByCourseId(int courseId)
+    {
+        return dataContext.GetTable<Course>().FirstOrDefault(c => c.CourseId == courseId);
     }
 
     // Payment Methods
@@ -100,34 +92,8 @@ public class SchoolDatabaseManager:Data
 
     public Registration GetRegistrationbyid(int studentid)
     {
-        Registration reg = null;
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "SELECT * FROM Registration WHERE StudentId = @id";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", studentid);
 
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        int a = reader.GetInt32(0);
-                        int b = reader.GetInt32(1);
-                        int c = reader.GetInt32(2);
-                        int d = reader.GetInt32(3);
-                        decimal e = reader.GetDecimal(4);
-                        decimal f= reader.GetDecimal(5);
-                        reg = new Registration(a, b, c, d, e, f);
-                        
-                    }
-                }
-
-            }
-        }
-
-        return reg ;
+        return dataContext.GetTable<Registration>().FirstOrDefault(r => r.StudentId == studentid) ;
         
     }
 
@@ -135,43 +101,17 @@ public class SchoolDatabaseManager:Data
     //class methods
     public string GetClassNameById(int classId)
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "SELECT ClassName FROM ClassRoom WHERE ClassId = @ClassId";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@ClassId", classId);
 
-                connection.Open();
-                string className = (string)command.ExecuteScalar();
-                return className;
-            }
-        }
+
+        return dataContext.GetTable<ClassRoom>().FirstOrDefault(c => c.ClassId == classId).ClassName;
     }
 
 
     // Department methods
     public string GetDepartmentNameById(int departmentId)
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query1 = "SELECT DepartmentName FROM Departments WHERE DepartmentId = @DepartmentId";
-            using (SqlCommand command = new SqlCommand(query1, connection))
-            {
-                command.Parameters.AddWithValue("@DepartmentId", departmentId);
 
-                connection.Open();
-                string departmentName = (string)command.ExecuteScalar();
-                return departmentName;
-            }
-
-            Table<Department> departments = dataContext.GetTable<Department>();
-
-            var query = from department in departments
-                        where department.DepartmentId == departmentId
-                        select department.DepartmentName;
-            return query.ToString();
-        }
+        return dataContext.GetTable<Department>().FirstOrDefault(d => d.DepartmentId == departmentId).DepartmentName;
     }
 
 
@@ -354,7 +294,7 @@ public class SchoolDatabaseManager:Data
 
     public void registerStudent(string usrname, string password, int dpID, string name,string address, decimal amount, int classid  )
     {
-        AddUser(usrname, password, "Student", dpID);
+        AddUser(usrname, password, "student", dpID);
        
         int userID = GetUserByUsernameAndPassword(usrname, password).UserId; 
         AddStudent(name, address, 0, dpID, userID);
@@ -393,31 +333,7 @@ public class SchoolDatabaseManager:Data
 
     public User GetUserById(int userId)
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "SELECT UserId, Username, Password, Role, DepartmentId FROM Users WHERE UserId = @UserId";
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@UserId", userId);
-
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        string username = reader.GetString(1);
-                        string password = reader.GetString(2);
-                        string role = reader.GetString(3);
-                        int departmentId = reader.GetInt32(4);
-
-                        User user = new User(userId, username, password, role, departmentId);
-                        return user;
-                    }
-                }
-            }
-        }
-
-        return null;
+        return dataContext.GetTable<User>().ToList<User>().Find(c => c.UserId == userId);
     }
 
     public User GetUserByUsernameAndPassword(string username, string password)

@@ -23,7 +23,10 @@ namespace StSchoolWebsite3rdYearProject.models
         }
 
 
+        Grade()
+        {
 
+        }
 
     }
 }

@@ -8,7 +8,6 @@
         <!-- Admin Profile Section -->
         <div  class="container-fluid badge-dark hero">
             <div class="container-fluid">
-                <asp:Timer ID="Timer1" runat="server" OnLoad="Timer1_Load"></asp:Timer>
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
                     <div>
                         <h3 style="font-size: 24px;">Welcome,

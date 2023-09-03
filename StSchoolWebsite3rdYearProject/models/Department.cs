@@ -20,5 +20,9 @@ namespace StSchoolWebsite3rdYearProject.models
             DepartmentId = departmentId;
             DepartmentName = departmentName;
         }
+        public Department()
+        {
+
+        }
     }
 }

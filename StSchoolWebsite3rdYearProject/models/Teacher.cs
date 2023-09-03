@@ -28,5 +28,10 @@ namespace StSchoolWebsite3rdYearProject.models
             DepartmentId = departmentId;
             UserId = userId;
         }
+
+        Teacher()
+        {
+
+        }
     }
 }

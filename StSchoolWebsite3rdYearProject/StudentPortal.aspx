@@ -57,10 +57,10 @@
                         </i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><span runat="server" id="userLogged" class="user-name">John Doe</span></a>
+                        <a class="nav-link" href="#"><span runat="server" id="userLogged" class="user-name"></span></a>
                     </li>
                     <li class="nav-item">
-                        <asp:Button runat="server" ID="logoutButton" CssClass="btn btn-primary align-content-center" Text="Logout" />
+                        <asp:Button runat="server" ID="logoutButton" CssClass="btn btn-primary align-content-center" OnClick="logoutButton_Click" Text="Logout" />
                     </li>
                 </ul>
             </div>
@@ -251,9 +251,9 @@
         <div class="student-details row">
             <div class="col-6 text-start">
                 <h2>Student Details</h2>
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Grade:</strong> Grade 10</p>
-                <p><strong>Student ID:</strong> 123456789</p>
+                <p><strong>Name:</strong> <%= name.InnerHtml %></p>
+                <p><strong>Grade:</strong> <%=grade.InnerHtml %></p>
+                <p ><strong>Student ID:</strong><p runat="server" id="ids"></p> </p>
             </div>
             <div class="col-6 text-start">
                 <img src="https://static.vecteezy.com/system/resources/previews/008/040/410/original/school-logo-design-template-free-vector.jpg" alt="School Logo" class="school-logo">
@@ -270,41 +270,14 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        <%foreach ( StSchoolWebsite3rdYearProject.models.Grade grades in new SchoolDatabaseManager().GetGradesByStudent(int.Parse(ids.InnerHtml))){ %>
                         <tr>
-                            <td>English</td>
-                            <td>90%</td>
+                            <td><%=new SchoolDatabaseManager().GetCourseByCourseId(grades.CourseId).CourseName %></td>
+                            <td><%=grades.GradeValue.ToString() + "%" %></td>
                             <td><i class="fas fa-check-circle text-success"></i></td>
                         </tr>
-                        <tr>
-                            <td>iSiZulu</td>
-                            <td>85%</td>
-                            <td><i class="fas fa-check-circle text-success"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Life Oreintation</td>
-                            <td>92%</td>
-                            <td><i class="fas fa-check-circle text-success"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Mathematics</td>
-                            <td>78%</td>
-                            <td><i class="fas fa-times-circle text-danger"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Accounting</td>
-                            <td>88%</td>
-                            <td><i class="fas fa-check-circle text-success"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Economics</td>
-                            <td>91%</td>
-                            <td><i class="fas fa-check-circle text-success"></i></td>
-                        </tr>
-                        <tr>
-                            <td>Business Studies</td>
-                            <td>95%</td>
-                            <td><i class="fas fa-check-circle text-success"></i></td>
-                        </tr>
+                        <% }%>
                     </tbody>
                 </table>
                 <button type="button" id="downloadButton" class="btn btn-primary download-button" onclick="generatePDF()">Download PDF</button>

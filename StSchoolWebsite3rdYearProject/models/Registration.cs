@@ -20,6 +20,10 @@ namespace StSchoolWebsite3rdYearProject.models
         public decimal Fees { get; set; }
         private decimal adding { get; set; }
 
+        Registration()
+        {
+
+        }
         public Registration(int registrationId, int studentid, int classid, int registrationyear, decimal amaountpaid, decimal fees)
         {
             RegistrationId = registrationId;
